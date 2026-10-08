@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RCG Market Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0C1829;color:#fff;font-family:'Inter',sans-serif;min-height:100vh}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 32px;border-bottom:1px solid rgba(201,168,76,0.2);background:#0C1829;position:sticky;top:0;z-index:100}
+.logo-group{display:flex;align-items:center;gap:12px}
+.logo-mark{width:36px;height:36px;background:#C9A84C;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#0C1829}
+.logo-text{font-size:14px;font-weight:600}
+.logo-sub{font-size:10px;color:#8FA3B8}
+.header-right{text-align:right;font-size:11px;color:#8FA3B8}
+.live-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.4);color:#27AE60;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;margin-bottom:3px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#27AE60;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* HERO */
+.hero{padding:28px 32px 20px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.hero h1{font-family:'Playfair Display',serif;font-size:28px;line-height:1.2;margin-bottom:8px}
+.hero h1 span{color:#C9A84C}
+.hero p{font-size:12px;color:#8FA3B8;max-width:560px;line-height:1.6}
+.kpi-row{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap}
+.kpi{flex:1;min-width:130px;background:#132338;border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:14px 18px}
+.kpi-num{font-size:24px;font-weight:700;color:#C9A84C;font-family:'Playfair Display',serif}
+.kpi-label{font-size:10px;color:#8FA3B8;margin-top:4px;line-height:1.4}
+
+/* TABS */
+.tab-bar{display:flex;border-bottom:1px solid rgba(255,255,255,0.08);background:#0C1829;overflow-x:auto;padding:0 32px}
+.tab{padding:13px 20px;font-size:12px;font-weight:500;color:#8FA3B8;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s;user-select:none}
+.tab:hover{color:#fff}
+.tab.active{color:#C9A84C;border-bottom-color:#C9A84C}
+
+/* PANELS — THE KEY FIX */
+.content-area{padding:24px 32px}
+.panel{display:none}
+.panel.active{display:block}
+
+/* SECTION LABEL */
+.section-label{font-size:10px;font-weight:600;color:#C9A84C;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+
+/* PROJECT CARDS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.pcard{background:#132338;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;transition:border-color 0.2s}
+.pcard:hover{border-color:rgba(201,168,76,0.35)}
+.pcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.pcard-title{font-size:13px;font-weight:600;line-height:1.35;flex:1;padding-right:8px}
+.badge{font-size:9px;font-weight:600;padding:3px 7px;border-radius:12px;white-space:nowrap;flex-shrink:0}
+.badge-hot{background:rgba(192,57,43,0.2);color:#E74C3C;border:1px solid rgba(192,57,43,0.4)}
+.badge-warm{background:rgba(230,126,34,0.2);color:#F39C12;border:1px solid rgba(230,126,34,0.4)}
+.badge-watch{background:rgba(74,127,165,0.2);color:#6FA3C8;border:1px solid rgba(74,127,165,0.3)}
+.pcard-meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:10px;font-size:10px;color:#8FA3B8}
+.pcard-value{font-size:19px;font-weight:700;color:#C9A84C;margin-bottom:6px}
+.pcard-desc{font-size:11px;color:#8FA3B8;line-height:1.55;margin-bottom:12px}
+.pcard-fit{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.18);border-radius:7px;padding:9px 11px}
+.fit-label{font-size:9px;font-weight:600;color:#C9A84C;margin-bottom:5px}
+.fit-tags{display:flex;flex-wrap:wrap;gap:4px}
+.fit-tag{font-size:9px;background:rgba(30,58,95,0.8);color:#6FA3C8;border:1px solid rgba(74,127,165,0.22);padding:2px 6px;border-radius:4px}
+.new-badge{font-size:9px;font-weight:600;color:#27AE60;margin-bottom:7px}
+
+/* COUNTRY CARDS */
+.country-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.ccard{background:#132338;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:18px;transition:border-color 0.2s}
+.ccard:hover{border-color:rgba(74,127,165,0.35)}
+.ccard-flag{font-size:26px;margin-bottom:7px}
+.ccard-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.ccard-priority{display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:11px;font-weight:600}
+.pdot{width:8px;height:8px;border-radius:50%}
+.pdot-gold{background:#C9A84C}
+.pdot-blue{background:#6FA3C8}
+.pdot-grey{background:#8FA3B8}
+.ccard-capex{font-size:20px;font-weight:700;color:#C9A84C}
+.ccard-capex-label{font-size:9px;color:#8FA3B8;margin-bottom:10px}
+.ccard-sectors{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.sector-chip{font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(30,58,95,0.6);color:#6FA3C8;border:1px solid rgba(74,127,165,0.2)}
+.ccard-note{font-size:11px;color:#8FA3B8;line-height:1.55}
+
+/* PIPELINE TABLE */
+.pipeline-wrap{background:#132338;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:auto;margin-bottom:16px}
+.ptable{width:100%;border-collapse:collapse;min-width:600px}
+.ptable th{font-size:9px;font-weight:600;color:#8FA3B8;letter-spacing:0.8px;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
+.ptable td{font-size:11px;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.04);color:#C8D8E8;vertical-align:middle}
+.ptable tr:hover td{background:rgba(30,58,95,0.2)}
+.score-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:4px}
+.score-fill{height:4px;border-radius:2px;background:#C9A84C}
+.act-now{color:#E74C3C;font-weight:600;font-size:10px}
+.qualify{color:#F39C12;font-weight:600;font-size:10px}
+.research{color:#6FA3C8;font-weight:600;font-size:10px}
+.monitor{color:#8FA3B8;font-weight:600;font-size:10px}
+
+/* AI CHAT */
+.ai-box{background:#132338;border:1px solid rgba(201,168,76,0.2);border-radius:14px;overflow:hidden;max-width:720px}
+.ai-head{background:linear-gradient(135deg,#1E3A5F,#132338);padding:14px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,0.15)}
+.ai-icon{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#C9A84C,#A07830);display:flex;align-items:center;justify-content:center;font-size:15px}
+.ai-title{font-size:13px;font-weight:600}
+.ai-sub{font-size:10px;color:#8FA3B8}
+.quick-area{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.quick-label{font-size:10px;color:#8FA3B8;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{font-size:11px;background:rgba(30,58,95,0.6);border:1px solid rgba(74,127,165,0.3);color:#6FA3C8;padding:5px 11px;border-radius:6px;cursor:pointer;transition:all 0.2s}
+.chip:hover{background:rgba(74,127,165,0.25);border-color:#4A7FA5;color:#fff}
+.chat-area{padding:14px 18px;min-height:180px;max-height:320px;overflow-y:auto}
+.msg{margin-bottom:12px;animation:fadeup 0.3s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.msg-label{font-size:9px;font-weight:600;color:#8FA3B8;margin-bottom:4px}
+.msg-label.user{color:#C9A84C}
+.bubble{background:rgba(30,58,95,0.5);border:1px solid rgba(74,127,165,0.2);border-radius:8px;padding:10px 13px;font-size:12px;line-height:1.6;color:#C8D8E8}
+.bubble.user-bubble{background:rgba(201,168,76,0.1);border-color:rgba(201,168,76,0.2);color:#fff}
+.input-row{padding:12px 18px;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:8px}
+.ai-input{flex:1;background:rgba(12,24,41,0.8);border:1px solid rgba(74,127,165,0.3);border-radius:7px;padding:9px 12px;font-size:12px;color:#fff;font-family:'Inter',sans-serif;outline:none}
+.ai-input:focus{border-color:#4A7FA5}
+.ai-input::placeholder{color:#8FA3B8}
+.send-btn{background:#C9A84C;color:#0C1829;border:none;border-radius:7px;padding:9px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.send-btn:hover{background:#E8C96A}
+.send-btn:disabled{opacity:0.5;cursor:not-allowed}
+.loading-dots::after{content:'';animation:dots 1.2s steps(3,end) infinite}
+@keyframes dots{0%{content:''}33%{content:'.'}66%{content:'..'}100%{content:'...'}}
+
+/* CRM */
+.crm-kpis{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.ckpi{flex:1;min-width:110px;background:#132338;border:1px solid rgba(201,168,76,0.2);border-radius:10px;padding:12px 16px}
+.ckpi-num{font-size:20px;font-weight:700;color:#C9A84C;font-family:'Playfair Display',serif}
+.ckpi-label{font-size:9px;color:#8FA3B8;margin-top:3px}
+.crm-controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.crm-filters{display:flex;gap:8px;flex-wrap:wrap}
+.crm-sel{background:#132338;border:1px solid rgba(74,127,165,0.3);color:#fff;font-size:11px;padding:7px 10px;border-radius:6px;outline:none;cursor:pointer;font-family:'Inter',sans-serif}
+.add-btn{background:#C9A84C;color:#0C1829;border:none;border-radius:7px;padding:8px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.add-btn:hover{background:#E8C96A}
+.kanban{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
+@media(max-width:900px){.kanban{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.kanban{grid-template-columns:1fr}}
+.lane{background:rgba(19,35,56,0.6);border:1px solid rgba(255,255,255,0.07);border-radius:10px;overflow:hidden;min-height:180px}
+.lane-head{display:flex;align-items:center;gap:6px;padding:9px 11px;border-bottom:2px solid;background:rgba(12,24,41,0.5)}
+.ldot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ltitle{font-size:10px;font-weight:600;flex:1}
+.lcount{background:rgba(255,255,255,0.1);font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px}
+.cards{padding:8px 7px;display:flex;flex-direction:column;gap:7px}
+.kcard{background:#132338;border:1px solid rgba(255,255,255,0.08);border-radius:7px;padding:9px 11px;cursor:pointer;transition:border-color 0.2s}
+.kcard:hover{border-color:rgba(201,168,76,0.3)}
+.kc-proj{font-size:11px;font-weight:600;margin-bottom:4px;line-height:1.3}
+.kc-client{font-size:9px;color:#8FA3B8;margin-bottom:5px}
+.kc-val{font-size:11px;font-weight:700;color:#C9A84C;margin-bottom:4px}
+.kc-foot{display:flex;justify-content:space-between}
+.kc-owner{font-size:9px;background:rgba(74,127,165,0.2);color:#6FA3C8;padding:2px 6px;border-radius:4px}
+.kc-date{font-size:9px;color:#8FA3B8}
+.kc-btns{display:flex;gap:3px;margin-top:7px}
+.kbtn{font-size:9px;padding:2px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#8FA3B8;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s}
+.kbtn:hover{background:rgba(201,168,76,0.15);border-color:#C9A84C;color:#C9A84C}
+.kbtn.del:hover{background:rgba(192,57,43,0.15);border-color:#E74C3C;color:#E74C3C}
+.crm-table-wrap{background:#132338;border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:auto}
+.ctable{width:100%;border-collapse:collapse;min-width:680px}
+.ctable th{font-size:9px;font-weight:600;color:#8FA3B8;letter-spacing:0.8px;text-transform:uppercase;padding:9px 13px;border-bottom:1px solid rgba(255,255,255,0.08);text-align:left}
+.ctable td{font-size:11px;padding:10px 13px;border-bottom:1px solid rgba(255,255,255,0.04);color:#C8D8E8;vertical-align:middle}
+.ctable tr:hover td{background:rgba(30,58,95,0.2)}
+.stage-badge{font-size:9px;font-weight:600;padding:2px 7px;border-radius:8px;white-space:nowrap}
+.s-Identified{background:rgba(143,163,184,0.15);color:#8FA3B8;border:1px solid rgba(143,163,184,0.3)}
+.s-Contacted{background:rgba(74,127,165,0.15);color:#6FA3C8;border:1px solid rgba(74,127,165,0.3)}
+.s-Quoting{background:rgba(201,168,76,0.15);color:#C9A84C;border:1px solid rgba(201,168,76,0.3)}
+.s-Won{background:rgba(39,174,96,0.15);color:#27AE60;border:1px solid rgba(39,174,96,0.3)}
+.s-Lost{background:rgba(192,57,43,0.15);color:#E74C3C;border:1px solid rgba(192,57,43,0.3)}
+.tbtn{font-size:9px;padding:2px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#8FA3B8;cursor:pointer;margin-right:3px;font-family:'Inter',sans-serif;transition:all 0.2s}
+.tbtn:hover{background:rgba(201,168,76,0.15);border-color:#C9A84C;color:#C9A84C}
+.tbtn.del:hover{background:rgba(192,57,43,0.15);border-color:#E74C3C;color:#E74C3C}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:999;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#132338;border:1px solid rgba(201,168,76,0.25);border-radius:14px;width:100%;max-width:620px;max-height:90vh;overflow-y:auto}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.modal-title{font-size:14px;font-weight:600}
+.modal-x{background:transparent;border:none;color:#8FA3B8;font-size:15px;cursor:pointer;padding:3px 7px;border-radius:4px}
+.modal-x:hover{color:#fff}
+.modal-body{padding:18px 20px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:500px){.modal-grid{grid-template-columns:1fr}}
+.mfield{display:flex;flex-direction:column;gap:4px}
+.mlabel{font-size:10px;font-weight:600;color:#8FA3B8}
+.minput{background:rgba(12,24,41,0.7);border:1px solid rgba(74,127,165,0.3);border-radius:7px;padding:8px 11px;font-size:12px;color:#fff;outline:none;font-family:'Inter',sans-serif}
+.minput:focus{border-color:#4A7FA5}
+.pchecks{display:flex;flex-wrap:wrap;gap:7px;background:rgba(12,24,41,0.5);border:1px solid rgba(74,127,165,0.2);border-radius:7px;padding:9px 11px}
+.check-item{display:flex;align-items:center;gap:4px;font-size:10px;color:#8FA3B8;cursor:pointer;white-space:nowrap}
+.check-item input{accent-color:#C9A84C;cursor:pointer}
+.modal-foot{display:flex;justify-content:flex-end;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
+.mbtn-cancel{background:transparent;border:1px solid rgba(255,255,255,0.15);color:#8FA3B8;border-radius:7px;padding:8px 18px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif}
+.mbtn-save{background:#C9A84C;color:#0C1829;border:none;border-radius:7px;padding:8px 22px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+
+@media(max-width:640px){
+  header{padding:12px 16px}
+  .hero{padding:18px 16px}
+  .content-area{padding:18px 16px}
+  .tab-bar{padding:0 8px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-group">
+    <div class="logo-mark">RCG</div>
+    <div>
+      <div class="logo-text">Right Choice Group</div>
+      <div class="logo-sub">Market Intelligence Platform</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge"><span class="live-dot"></span> Live AI Research</div>
+    <div>Abu Dhabi &nbsp;·&nbsp; <strong style="color:#C9A84C">08 Oct 2026</strong> &nbsp;<span style="color:#27AE60;font-size:9px">✓ Refreshed Today</span></div>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>GCC Project Radar<br><span>& Lead Intelligence</span></h1>
+  <p>AI-powered market research tracking $55B+ in confirmed ADNOC project awards — mapped to RCG's product portfolio. <span style="color:#C9A84C">● Refreshed 08 October 2026 · ADNOC Local+ programme: UAE suppliers are first choice · ADIPEC in 25 days</span></p>
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-num">$55B</div><div class="kpi-label">ADNOC confirmed awards<br>2026–2028 · Local+ priority</div></div>
+    <div class="kpi"><div class="kpi-num">70</div><div class="kpi-label">UAE manufacturers on ADNOC<br>Local+ approved list</div></div>
+    <div class="kpi"><div class="kpi-num">25</div><div class="kpi-label">Days to ADIPEC 2026<br>Abu Dhabi · 2–5 Nov</div></div>
+    <div class="kpi"><div class="kpi-num">10</div><div class="kpi-label">Hot projects tracked<br>for RCG · 08 Oct 2026</div></div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active" onclick="switchTab('projects',this)">🔥 Hot Projects</div>
+  <div class="tab" onclick="switchTab('countries',this)">🗺 Country Radar</div>
+  <div class="tab" onclick="switchTab('pipeline',this)">📊 Pipeline Score</div>
+  <div class="tab" onclick="switchTab('ai',this)">🤖 AI Assistant</div>
+  <div class="tab" onclick="switchTab('crm',this)">📋 Tender Tracker</div>
+</div>
+
+<div class="content-area">
+
+<!-- ═══ TAB 1: HOT PROJECTS ═══ -->
+<div class="panel active" id="panel-projects">
+  <div class="section-label">Active & Upcoming Tenders — Matched to RCG Products · Last Refreshed: 08 October 2026</div>
+  <div class="projects-grid">
+
+    <div class="pcard" style="border-color:rgba(201,168,76,0.35)">
+      <div class="new-badge">✦ UPDATED TODAY — 08 Oct 2026</div>
+      <div class="pcard-top"><div class="pcard-title">ADNOC Rich Gas Development (RGD) — All 3 Phases</div><span class="badge badge-hot">🔴 HOT NOW</span></div>
+      <div class="pcard-meta"><span>📍 Habshan, UAE</span><span>🏢 ADNOC Gas</span><span>📅 EPC awarded Aug 2026</span></div>
+      <div class="pcard-value">$13.2B total confirmed</div>
+      <div class="pcard-desc">Aug 10 2026: ADNOC Gas awarded $8.2B EPC — Phase 2 ($3.9B to Wison Engineering), Phase 3 ($4.3B to Tecnimont). Combined with Phase 1 ($5B, 2025), total RGD = $13.2B. Sub-supplier procurement windows open NOW with both EPC contractors.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Process Equipment</span><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Industrial Chillers</span><span class="fit-tag">Valves</span><span class="fit-tag">Instrumentation</span></div></div>
+    </div>
+
+    <div class="pcard" style="border-color:rgba(201,168,76,0.4)">
+      <div class="new-badge">🆕 NEW TODAY — 08 Oct 2026</div>
+      <div class="pcard-top"><div class="pcard-title">ADNOC Bab Gas Cap (BGC) — $8B+ Main Plant EPC</div><span class="badge badge-hot">🔴 HOT NOW</span></div>
+      <div class="pcard-meta"><span>📍 Bab Area, Abu Dhabi</span><span>🏢 ADNOC Gas</span><span>📅 Tech bids: 16 Nov 2026</span></div>
+      <div class="pcard-value">$8B+ (Package 1 alone)</div>
+      <div class="pcard-desc">Breaking 08 Oct 2026: High-stakes bid contest heating up. Gas processing plant targeting 1.85 Bcfd. 4 consortiums: L&T+Samsung E&A · Saipem+NMDC Energy · Technip+JGC+Sinopec · Tecnimont+CPECC. Also invited: McDermott, Petrofac, Wison. Bids due 16 Nov 2026 — HIGHEST URGENCY.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Process Equipment</span><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Industrial Chillers</span><span class="fit-tag">Valves & Instrumentation</span><span class="fit-tag">Electrical</span></div></div>
+    </div>
+
+    <div class="pcard" style="border-color:rgba(74,127,165,0.35)">
+      <div class="new-badge" style="color:#6FA3C8">✦ NEW — 08 Oct 2026</div>
+      <div class="pcard-top"><div class="pcard-title">ADNOC XRG — Absheron Offshore Gas Phase 2 (Azerbaijan)</div><span class="badge badge-watch">🔵 WATCH</span></div>
+      <div class="pcard-meta"><span>📍 Caspian Sea, Azerbaijan</span><span>🏢 ADNOC XRG (30%)</span><span>📅 FID: 08 Oct 2026</span></div>
+      <div class="pcard-value">600 MMcfd + 47,000 bpd</div>
+      <div class="pcard-desc">FID confirmed 08 Oct 2026. ADNOC's international unit XRG ($80B+ enterprise value) sanctioned Absheron Phase 2 in Azerbaijan. Production target 2029. Partners: SOCAR 35%, TotalEnergies 35%, XRG 30%. New international supply angle for RCG via ADNOC's global expansion.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply (via XRG procurement)</div><div class="fit-tags"><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Instrumentation</span><span class="fit-tag">Valves</span><span class="fit-tag">Process Equipment</span></div></div>
+    </div>
+
+    <div class="pcard" style="border-color:rgba(201,168,76,0.4)">
+      <div class="new-badge">🆕 NEW — 21 Jul 2026 · EPC packages now open</div>
+      <div class="pcard-top"><div class="pcard-title">ADNOC Umm Shaif Gas Cap Development — Offshore Abu Dhabi</div><span class="badge badge-hot">🔴 HOT NOW</span></div>
+      <div class="pcard-meta"><span>📍 Offshore Abu Dhabi</span><span>🏢 ADNOC Offshore</span><span>📅 3 EPC packages awarded</span></div>
+      <div class="pcard-value">$6.2B FID confirmed</div>
+      <div class="pcard-desc">FID taken 21 Jul 2026. Three EPC packages totalling $5.1B awarded to UAE & international contractor consortiums for large-scale offshore infrastructure. Plus $365M 14-well drilling programme by ADNOC Drilling. Target: 600+ MMscfd gas + condensates by 2030. Partners: ADNOC Offshore 60%, TotalEnergies 20%, Eni 10%, CNPC 10%. Sub-supplier procurement windows open NOW.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Offshore Platform Equipment</span><span class="fit-tag">Valves & Instrumentation</span><span class="fit-tag">Industrial Chillers</span><span class="fit-tag">Marine Equipment</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top"><div class="pcard-title">ADNOC Upper Zakum Expansion — UZ 1.5 MMBD</div><span class="badge badge-hot">🔴 HOT NOW</span></div>
+      <div class="pcard-meta"><span>📍 Offshore Abu Dhabi</span><span>🏢 ADNOC Offshore</span><span>📅 Awards through 2027</span></div>
+      <div class="pcard-value">~$17B total</div>
+      <div class="pcard-desc">Largest single EPC opportunity in ADNOC's portfolio. Targeting 1.5 MMBD across four artificial islands. Multiple packages covering wellheads, separation, utilities, power, pipelines. EPC contractors: McDermott, Saipem, TechnipFMC, L&T.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Bulk Material Handling</span><span class="fit-tag">Valves & Strainers</span><span class="fit-tag">Electrical</span><span class="fit-tag">Marine Equipment</span></div></div>
+    </div>
+
+    <div class="pcard" style="border-color:rgba(201,168,76,0.4)">
+      <div class="new-badge">🆕 TODAY — 08 Oct 2026 · LNG deal signed · ADIPEC in 25 days</div>
+      <div class="pcard-top"><div class="pcard-title">ADNOC Ruwais LNG — 9.6 MTPA · Procurement Accelerating</div><span class="badge badge-hot">🔴 HOT NOW</span></div>
+      <div class="pcard-meta"><span>📍 Ruwais, UAE</span><span>🏢 ADNOC Gas</span><span>📅 Operations: 2028</span></div>
+      <div class="pcard-value">9.6 MTPA capacity · $10B+ project</div>
+      <div class="pcard-desc">TODAY 08 Oct 2026: ADNOC signed a 2 million tonne LNG supply deal with Thailand's Gulf Development — deliveries from 2027. Over 90% of Ruwais LNG capacity now committed to long-term buyers. Commercial operations target 2028. ADIPEC 2026 (Abu Dhabi, 2–5 Nov) will see major Ruwais LNG procurement meetings — 239,000 attendees expected. RCG must be at ADIPEC this year.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Industrial Chillers</span><span class="fit-tag">Process Equipment</span><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Valves & Instrumentation</span><span class="fit-tag">Electrical</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top"><div class="pcard-title">ADNOC SE Onshore Asset Expansion (P5)</div><span class="badge badge-warm">🟠 ACTIVE</span></div>
+      <div class="pcard-meta"><span>📍 Asab, Sahil, Shah</span><span>🏢 ADNOC Onshore</span><span>📅 45-month delivery</span></div>
+      <div class="pcard-value">$397M (CPECC package)</div>
+      <div class="pcard-desc">Expansion targeting 132,000 bpd additional output across Asab, Sahil, Shah, Qusahwira. RCG already has proven supply history at these sites — strongest competitive advantage on this project.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Pipes & Fittings</span><span class="fit-tag">E&I Cables</span><span class="fit-tag">Instrumentation</span><span class="fit-tag">Compressors</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top"><div class="pcard-title">Hail & Ghasha + SARB Deep Gas — ADNOC Ghasha</div><span class="badge badge-warm">🟠 ACTIVE</span></div>
+      <div class="pcard-meta"><span>📍 Offshore UAE</span><span>🏢 ADNOC Ghasha</span><span>📅 FID: Jan 2026</span></div>
+      <div class="pcard-value">Multi-billion (Ghasha concession)</div>
+      <div class="pcard-desc">SARB Deep Gas FID taken Jan 2026 — 200 MMcfd output by end of decade. EPC: McDermott. Hail & Ghasha megaproject construction underway. New ADNOC Ghasha operating company building vendor list from scratch.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Process Equipment</span><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Sour Service Valves</span><span class="fit-tag">Instrumentation</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top"><div class="pcard-title">Saudi Aramco — Jafurah Gas Development Phase 2</div><span class="badge badge-warm">🟠 ACTIVE</span></div>
+      <div class="pcard-meta"><span>📍 Eastern Province, KSA</span><span>🏢 Saudi Aramco</span><span>📅 Delivery to 2030</span></div>
+      <div class="pcard-value">$12.4B (Phase 2)</div>
+      <div class="pcard-desc">Largest oil & gas project in Saudi Arabia. Phase 2 covers gas compression, pipelines, NGL fractionation. Gas production target +60% vs 2021 by 2030. Master Gas System Phase III ($8.8B) also active.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Compressor Packages</span><span class="fit-tag">Bulk Material Handling</span><span class="fit-tag">Valves</span><span class="fit-tag">Process Equipment</span></div></div>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-top"><div class="pcard-title">QatarEnergy — NFW LNG + Bul Hanine Offshore EPIC</div><span class="badge badge-watch">🔵 WATCH</span></div>
+      <div class="pcard-meta"><span>📍 Ras Laffan, Qatar</span><span>🏢 QatarEnergy</span><span>📅 COOEC construction started</span></div>
+      <div class="pcard-value">$4B (Bul Hanine) + NFW LNG</div>
+      <div class="pcard-desc">Sep 2026: COOEC started construction on $4B Bul Hanine offshore EPIC — sub-supplier windows open. NFW LNG (+16 MTPA) sub-contract mobilisation also ongoing. Two active Qatar opportunities for RCG simultaneously.</div>
+      <div class="pcard-fit"><div class="fit-label">⚡ RCG Can Supply</div><div class="fit-tags"><span class="fit-tag">Rotating Equipment</span><span class="fit-tag">Industrial Chillers</span><span class="fit-tag">Instrumentation</span><span class="fit-tag">Conveyor Systems</span></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TAB 2: COUNTRY RADAR ═══ -->
+<div class="panel" id="panel-countries">
+  <div class="section-label">GCC Market Priority Assessment for RCG · Updated: 08 October 2026</div>
+  <div class="country-grid">
+
+    <div class="ccard">
+      <div class="ccard-flag">🇦🇪</div>
+      <div class="ccard-name">UAE (Home Market)</div>
+      <div class="ccard-priority"><div class="pdot pdot-gold"></div><span style="color:#C9A84C">Priority 1 — Existing Strength</span></div>
+      <div class="ccard-capex">$55B</div>
+      <div class="ccard-capex-label">Confirmed ADNOC project awards 2026–2028</div>
+      <div class="ccard-sectors"><span class="sector-chip">RGD $13.2B ✓</span><span class="sector-chip">BGC $8B+ 🔴</span><span class="sector-chip">Umm Shaif $6.2B 🆕</span><span class="sector-chip">Upper Zakum $17B</span></div>
+      <div class="ccard-note">08 Oct 2026: ADNOC's $55B project pipeline officially prioritises UAE-based suppliers through the "Local+" programme — 70 UAE manufacturers already on the approved list. RCG must apply for Local+ registration immediately to qualify as first-choice supplier across $55B in awards. "Make it in the Emirates" makes UAE products mandatory first-choice across all ADNOC projects. ADIPEC 2026 in 25 days (2–5 Nov) — BGC bids close 16 Nov. Ghasha sour gas $2.7B drilling contracts awarded to ADNOC subsidiaries — surface equipment procurement follows next.</div>
+    </div>
+
+    <div class="ccard">
+      <div class="ccard-flag">🇸🇦</div>
+      <div class="ccard-name">Saudi Arabia</div>
+      <div class="ccard-priority"><div class="pdot pdot-gold"></div><span style="color:#C9A84C">Priority 2 — Expand Now</span></div>
+      <div class="ccard-capex">$180B+</div>
+      <div class="ccard-capex-label">Oil & gas investment through 2030</div>
+      <div class="ccard-sectors"><span class="sector-chip">Jafurah $12.4B</span><span class="sector-chip">MGS III $8.8B</span><span class="sector-chip">L&T EPC 🆕 5 Oct</span><span class="sector-chip">Rabigh 2 CCGT 🆕</span></div>
+      <div class="ccard-note">08 Oct 2026: L&T secured mega Power Transmission EPC orders in Saudi Arabia, UAE & India — today. 04 Oct: ACWA Power reached financial close on 2,313.5 MW Rabigh 2 CCGT expansion. Saudi Q2 2026 gas sector awards jumped from $800M to $4.4B year-on-year (+450%). Saudi Arabia represents 50%+ of GCC's $2.05T project pipeline.</div>
+    </div>
+
+    <div class="ccard">
+      <div class="ccard-flag">🇶🇦</div>
+      <div class="ccard-name">Qatar</div>
+      <div class="ccard-priority"><div class="pdot pdot-blue"></div><span style="color:#6FA3C8">Priority 3 — Active Pursuit</span></div>
+      <div class="ccard-capex">$4B+</div>
+      <div class="ccard-capex-label">Bul Hanine EPIC + NFW LNG</div>
+      <div class="ccard-sectors"><span class="sector-chip">Bul Hanine $4B 🆕</span><span class="sector-chip">LNG NFW</span><span class="sector-chip">Ras Laffan</span></div>
+      <div class="ccard-note">Sep 2026: COOEC started construction on $4B Bul Hanine offshore EPIC — sub-supplier windows open now. Combined with NFW LNG sub-contracts, Qatar has two active opportunities for RCG simultaneously.</div>
+    </div>
+
+    <div class="ccard">
+      <div class="ccard-flag">🇰🇼</div>
+      <div class="ccard-name">Kuwait</div>
+      <div class="ccard-priority"><div class="pdot pdot-blue"></div><span style="color:#6FA3C8">Priority 4 — Emerging</span></div>
+      <div class="ccard-capex">Active</div>
+      <div class="ccard-capex-label">KOC offshore + power sector MRO</div>
+      <div class="ccard-sectors"><span class="sector-chip">KOC Offshore</span><span class="sector-chip">Power Plants</span><span class="sector-chip">Industrial MRO</span></div>
+      <div class="ccard-note">Oct 2026 update: KOC discovered <strong>Jazza Field — Kuwait's first gas field in its offshore area</strong>. Also drilled first two offshore wells at Julaia and Ruqwa, and first well at Ras Ashairij. New gas sweetening facility at Gas Booster Station 171 is 30% complete. Kuwait achieved 2.72 MMBPD crude target for second consecutive year. Gas discovery significantly increases equipment demand outlook.</div>
+    </div>
+
+    <div class="ccard">
+      <div class="ccard-flag">🇴🇲</div>
+      <div class="ccard-name">Oman</div>
+      <div class="ccard-priority"><div class="pdot pdot-grey"></div><span style="color:#8FA3B8">Priority 5 — Monitor</span></div>
+      <div class="ccard-capex">Growing</div>
+      <div class="ccard-capex-label">PDO & OQ + new drilling contracts</div>
+      <div class="ccard-sectors"><span class="sector-chip">PDO Upstream</span><span class="sector-chip">OQ Chemicals</span><span class="sector-chip">Duqm SEZ</span></div>
+      <div class="ccard-note">Sep 21 2026: Weatherford awarded 3-year drilling contract in Oman — signals active PDO upstream spending. Monitor PDO tender portal for equipment supply opportunities in Q4 2026.</div>
+    </div>
+
+    <div class="ccard">
+      <div class="ccard-flag">🌍</div>
+      <div class="ccard-name">Africa (GCC-supplied)</div>
+      <div class="ccard-priority"><div class="pdot pdot-grey"></div><span style="color:#8FA3B8">Priority 6 — Long-Term</span></div>
+      <div class="ccard-capex">Varied</div>
+      <div class="ccard-capex-label">Nigeria, Angola, Egypt, Libya</div>
+      <div class="ccard-sectors"><span class="sector-chip">Oil MRO</span><span class="sector-chip">Refinery</span><span class="sector-chip">XRG Int'l 🆕</span></div>
+      <div class="ccard-note">ADNOC XRG's Absheron FID (08 Oct 2026) shows ADNOC expanding internationally. RCG can leverage ADNOC relationship to pursue XRG-linked supply opportunities globally. Nigeria MRO and Egypt downstream remain fastest Africa entry points.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TAB 3: PIPELINE SCORE ═══ -->
+<div class="panel" id="panel-pipeline">
+  <div class="section-label">RCG Opportunity Scoring · Updated 08 October 2026</div>
+  <div class="pipeline-wrap">
+    <table class="ptable">
+      <thead>
+        <tr><th>Opportunity</th><th>Market</th><th>Value</th><th>RCG Fit Score</th><th>Action</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:rgba(201,168,76,0.04)">
+          <td><strong style="color:#fff">ADNOC Ruwais LNG — Sub-Supply</strong><br><span style="font-size:9px;color:#27AE60">🆕 TODAY: Thailand LNG deal signed · Procurement live</span></td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">$10B+</td>
+          <td><span style="color:#C9A84C;font-weight:700">91/100</span><div class="score-bar"><div class="score-fill" style="width:91%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr style="background:rgba(201,168,76,0.04)">
+          <td><strong style="color:#fff">ADNOC RGD — All 3 Phases</strong><br><span style="font-size:9px;color:#27AE60">✓ $13.2B confirmed · Aug 2026</span></td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">$13.2B</td>
+          <td><span style="color:#C9A84C;font-weight:700">97/100</span><div class="score-bar"><div class="score-fill" style="width:97%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr style="background:rgba(201,168,76,0.04)">
+          <td><strong style="color:#fff">ADNOC Umm Shaif Gas Cap</strong><br><span style="font-size:9px;color:#27AE60">🆕 FID Jul 2026 · EPC packages open now</span></td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">$6.2B</td>
+          <td><span style="color:#C9A84C;font-weight:700">92/100</span><div class="score-bar"><div class="score-fill" style="width:92%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr style="background:rgba(201,168,76,0.04)">
+          <td><strong style="color:#fff">ADNOC Bab Gas Cap (BGC)</strong><br><span style="font-size:9px;color:#E74C3C">🔴 Bids close 16 Nov · 6 weeks left</span></td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">$8B+</td>
+          <td><span style="color:#C9A84C;font-weight:700">93/100</span><div class="score-bar"><div class="score-fill" style="width:93%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">ADNOC Upper Zakum 1.5MMBD</strong><br>Multi-package offshore expansion</td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">~$17B</td>
+          <td><span style="color:#C9A84C;font-weight:700">90/100</span><div class="score-bar"><div class="score-fill" style="width:90%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">ADNOC SE Onshore P5</strong><br>Asab / Sahil / Shah</td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">$397M+</td>
+          <td><span style="color:#C9A84C;font-weight:700">88/100</span><div class="score-bar"><div class="score-fill" style="width:88%"></div></div></td>
+          <td><span class="act-now">Act Now</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Hail & Ghasha + SARB Deep Gas</strong><br>ADNOC Ghasha concession</td>
+          <td>🇦🇪 UAE</td><td style="color:#C9A84C;font-weight:700">Multi-B</td>
+          <td><span style="color:#C9A84C;font-weight:700">83/100</span><div class="score-bar"><div class="score-fill" style="width:83%"></div></div></td>
+          <td><span class="qualify">Qualify</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Qatar Bul Hanine Offshore EPIC</strong><br><span style="font-size:9px;color:#27AE60">🆕 COOEC construction started Sep 2026</span></td>
+          <td>🇶🇦 Qatar</td><td style="color:#C9A84C;font-weight:700">$4B</td>
+          <td><span style="color:#6FA3C8;font-weight:700">74/100</span><div class="score-bar"><div class="score-fill" style="width:74%;background:#6FA3C8"></div></div></td>
+          <td><span class="qualify">Qualify</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Aramco Jafurah Phase 2</strong><br>Gas compression & NGL fractionation</td>
+          <td>🇸🇦 KSA</td><td style="color:#C9A84C;font-weight:700">$12.4B</td>
+          <td><span style="color:#6FA3C8;font-weight:700">72/100</span><div class="score-bar"><div class="score-fill" style="width:72%;background:#6FA3C8"></div></div></td>
+          <td><span class="qualify">Qualify</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">QatarEnergy NFW Sub-supply</strong><br>LNG train sub-contractor packages</td>
+          <td>🇶🇦 Qatar</td><td style="color:#C9A84C;font-weight:700">TBD</td>
+          <td><span style="color:#6FA3C8;font-weight:700">68/100</span><div class="score-bar"><div class="score-fill" style="width:68%;background:#6FA3C8"></div></div></td>
+          <td><span class="research">Research</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:#fff">Kuwait KOC Offshore Program</strong><br>Al-Nukhatha exploration</td>
+          <td>🇰🇼 Kuwait</td><td style="color:#C9A84C;font-weight:700">Emerging</td>
+          <td><span style="color:#8FA3B8;font-weight:700">55/100</span><div class="score-bar"><div class="score-fill" style="width:55%;background:#8FA3B8"></div></div></td>
+          <td><span class="monitor">Monitor</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:10px;color:#8FA3B8">Fit Score factors: RCG product match · existing client relationship · ADNOC ICV advantage · project stage · sub-supply access</div>
+</div>
+
+<!-- ═══ TAB 4: AI ASSISTANT ═══ -->
+<div class="panel" id="panel-ai">
+  <div class="section-label">AI Research Assistant · Knowledge Updated: 08 October 2026</div>
+  <div class="ai-box">
+    <div class="ai-head">
+      <div class="ai-icon">🤖</div>
+      <div><div class="ai-title">RCG Market Intelligence Assistant</div><div class="ai-sub">Ask about projects, sectors, competitors, or entry strategies</div></div>
+    </div>
+    <div class="quick-area">
+      <div class="quick-label">Quick questions — click to ask:</div>
+      <div class="chips">
+        <div class="chip" onclick="askQuick(this)">Which ADNOC project should RCG prioritise first?</div>
+        <div class="chip" onclick="askQuick(this)">Tell me about the new Bab Gas Cap project</div>
+        <div class="chip" onclick="askQuick(this)">What happened in the GCC market this week?</div>
+        <div class="chip" onclick="askQuick(this)">Draft an outreach email to an EPC contractor</div>
+        <div class="chip" onclick="askQuick(this)">Who are RCG's main competitors in UAE?</div>
+        <div class="chip" onclick="askQuick(this)">How can RCG qualify for Saudi Aramco's IKTVA?</div>
+        <div class="chip" onclick="askQuick(this)" style="border-color:rgba(201,168,76,0.5);color:#C9A84C">🆕 What is the ADNOC Local+ programme?</div>
+      </div>
+    </div>
+    <div class="chat-area" id="chat-area">
+      <div class="msg">
+        <div class="msg-label">RCG Intelligence Assistant</div>
+        <div class="bubble">Intelligence refreshed <strong>08 October 2026</strong>.<br><br>🔴 <strong>NEW today:</strong> ADNOC Local+ programme — UAE-based suppliers are officially FIRST CHOICE across $55B in project awards. RCG must register on Local+ list now.<br>🔴 <strong>Ghasha $2.7B</strong> drilling contracts awarded — surface equipment procurement follows next.<br>🔴 <strong>ADIPEC 2026 is in 25 days</strong> — Abu Dhabi 2–5 Nov. 180,000–205,000 attendees.<br>🔴 <strong>BGC $8B+ bids close 16 Nov</strong> — 39 days left.<br><br>Click any quick question above or type your own below.</div>
+      </div>
+    </div>
+    <div class="input-row">
+      <input class="ai-input" id="ai-input" type="text" placeholder="Ask about a project, country, strategy or draft an email…" onkeydown="if(event.key==='Enter')sendMsg()"/>
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">Ask</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 5: TENDER TRACKER CRM ═══ -->
+<div class="panel" id="panel-crm">
+  <div class="section-label">Tender Tracker — Live BD Pipeline · Updated: 08 October 2026</div>
+  <div class="crm-kpis">
+    <div class="ckpi"><div class="ckpi-num" id="kpi-active">-</div><div class="ckpi-label">Active Pursuits</div></div>
+    <div class="ckpi"><div class="ckpi-num" id="kpi-closing">-</div><div class="ckpi-label">Closing This Month</div></div>
+    <div class="ckpi"><div class="ckpi-num" id="kpi-won">-</div><div class="ckpi-label">Won This Quarter</div></div>
+    <div class="ckpi"><div class="ckpi-num" id="kpi-winrate">-</div><div class="ckpi-label">Win Rate</div></div>
+    <div class="ckpi"><div class="ckpi-num" id="kpi-count">-</div><div class="ckpi-label">Total Tenders Tracked</div></div>
+  </div>
+  <div class="crm-controls">
+    <div class="crm-filters">
+      <select class="crm-sel" id="f-stage" onchange="renderCRM()"><option value="">All Stages</option><option>Identified</option><option>Contacted</option><option>Quoting</option><option>Won</option><option>Lost</option></select>
+      <select class="crm-sel" id="f-country" onchange="renderCRM()"><option value="">All Countries</option><option>UAE</option><option>KSA</option><option>Qatar</option><option>Kuwait</option><option>Oman</option></select>
+      <select class="crm-sel" id="f-owner" onchange="renderCRM()"><option value="">All Owners</option><option>Ahmed</option><option>Sara</option><option>Khalid</option><option>Ravi</option></select>
+    </div>
+    <button class="add-btn" onclick="openModal()">+ Add Tender</button>
+  </div>
+  <div class="kanban">
+    <div class="lane"><div class="lane-head" style="border-color:#8FA3B8"><div class="ldot" style="background:#8FA3B8"></div><span class="ltitle">⚪ Identified</span><span class="lcount" id="cnt-Identified">0</span></div><div class="cards" id="col-Identified"></div></div>
+    <div class="lane"><div class="lane-head" style="border-color:#4A7FA5"><div class="ldot" style="background:#4A7FA5"></div><span class="ltitle">🔵 Contacted</span><span class="lcount" id="cnt-Contacted">0</span></div><div class="cards" id="col-Contacted"></div></div>
+    <div class="lane"><div class="lane-head" style="border-color:#C9A84C"><div class="ldot" style="background:#C9A84C"></div><span class="ltitle">🟡 Quoting</span><span class="lcount" id="cnt-Quoting">0</span></div><div class="cards" id="col-Quoting"></div></div>
+    <div class="lane"><div class="lane-head" style="border-color:#27AE60"><div class="ldot" style="background:#27AE60"></div><span class="ltitle">🟢 Won</span><span class="lcount" id="cnt-Won">0</span></div><div class="cards" id="col-Won"></div></div>
+    <div class="lane"><div class="lane-head" style="border-color:#C0392B"><div class="ldot" style="background:#C0392B"></div><span class="ltitle">🔴 Lost</span><span class="lcount" id="cnt-Lost">0</span></div><div class="cards" id="col-Lost"></div></div>
+  </div>
+  <div class="section-label" style="margin-top:8px">Full Pipeline Table</div>
+  <div class="crm-table-wrap"><table class="ctable"><thead><tr><th>Project</th><th>Client</th><th>Country</th><th>Value</th><th>Stage</th><th>Owner</th><th>Next Action</th><th>Due Date</th><th></th></tr></thead><tbody id="crm-tbody"></tbody></table></div>
+</div>
+
+</div><!-- content-area -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title">➕ Add New Tender</div><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div class="mfield"><label class="mlabel">Project Name *</label><input class="minput" id="m-proj" placeholder="e.g. ADNOC Ruwais Expansion"/></div>
+        <div class="mfield"><label class="mlabel">Client *</label><input class="minput" id="m-client" placeholder="e.g. ADNOC Gas"/></div>
+        <div class="mfield"><label class="mlabel">Country</label><select class="minput" id="m-country"><option value="UAE">🇦🇪 UAE</option><option value="KSA">🇸🇦 Saudi Arabia</option><option value="Qatar">🇶🇦 Qatar</option><option value="Kuwait">🇰🇼 Kuwait</option><option value="Oman">🇴🇲 Oman</option><option value="Africa">🌍 Africa</option></select></div>
+        <div class="mfield"><label class="mlabel">Est. Value</label><input class="minput" id="m-value" placeholder="e.g. $5M or $2B"/></div>
+        <div class="mfield"><label class="mlabel">Stage</label><select class="minput" id="m-stage"><option>Identified</option><option>Contacted</option><option>Quoting</option><option>Won</option><option>Lost</option></select></div>
+        <div class="mfield"><label class="mlabel">Owner</label><select class="minput" id="m-owner"><option>Ahmed</option><option>Sara</option><option>Khalid</option><option>Ravi</option></select></div>
+        <div class="mfield" style="grid-column:1/-1"><label class="mlabel">RCG Products Applicable</label><div class="pchecks" id="m-prods"><label class="check-item"><input type="checkbox" value="Rotating Equipment"> Rotating Equipment</label><label class="check-item"><input type="checkbox" value="Industrial Chillers"> Industrial Chillers</label><label class="check-item"><input type="checkbox" value="Process Equipment"> Process Equipment</label><label class="check-item"><input type="checkbox" value="Valves"> Valves</label><label class="check-item"><input type="checkbox" value="Instrumentation"> Instrumentation</label><label class="check-item"><input type="checkbox" value="Electrical"> Electrical</label><label class="check-item"><input type="checkbox" value="Bulk Handling"> Bulk Handling</label><label class="check-item"><input type="checkbox" value="Maintenance"> Maintenance</label></div></div>
+        <div class="mfield" style="grid-column:1/-1"><label class="mlabel">Next Action</label><input class="minput" id="m-action" placeholder="e.g. Send capability statement to EPC"/></div>
+        <div class="mfield"><label class="mlabel">Due Date</label><input class="minput" type="date" id="m-date"/></div>
+        <div class="mfield"><label class="mlabel">Notes</label><input class="minput" id="m-notes" placeholder="Any additional context…"/></div>
+      </div>
+      <div class="modal-foot"><button class="mbtn-cancel" onclick="closeModal()">Cancel</button><button class="mbtn-save" onclick="saveTender()">Save Tender</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── TAB SWITCHING ───────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab-bar .tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.content-area .panel').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+  if (id === 'crm') renderCRM();
+}
+
+// ─── CRM DATA ────────────────────────────────────
+var tenders = [
+  {id:1, project:'ADNOC RGD — All 3 Phases ($13.2B)', client:'ADNOC Gas', country:'UAE', value:'$13.2B', stage:'Contacted', owner:'Ahmed', action:'Register with Wison & Tecnimont procurement', date:'2026-09-30', notes:'FID Aug 2026. Total confirmed $13.2B.'},
+  {id:2, project:'ADNOC Bab Gas Cap (BGC) — EPC Pkg 1', client:'ADNOC Gas', country:'UAE', value:'$8B+', stage:'Identified', owner:'Ahmed', action:'Contact all 7 EPC bidders before 16 Nov', date:'2026-11-16', notes:'🆕 NEW 08 Oct 2026. HIGHEST URGENCY.'},
+  {id:14, project:'ADNOC Local+ Registration — UAE Supplier Programme', client:'ADNOC (All Divisions)', country:'UAE', value:'$55B pipeline access', stage:'Identified', owner:'Ahmed', action:'Apply for Local+ approved supplier status at adnoc.ae — unlocks first-choice status across $55B in awards', date:'2026-10-21', notes:'🔴 NEW 08 Oct 2026. UAE-based suppliers get FIRST CHOICE status. 70 manufacturers already approved. RCG must register immediately.'},
+  {id:12, project:'ADNOC Ruwais LNG — Sub-Supply (9.6 MTPA)', client:'ADNOC Gas', country:'UAE', value:'$10B+', stage:'Identified', owner:'Khalid', action:'Contact Ruwais LNG EPC contractors + prepare for ADIPEC meetings 2–5 Nov', date:'2026-11-02', notes:'🆕 TODAY: Thailand LNG deal signed. 90%+ capacity committed. Operations 2028. Meet EPC teams at ADIPEC.'},
+  {id:13, project:'ADIPEC 2026 — Business Development Campaign', client:'All ADNOC + EPC Contractors', country:'UAE', value:'Multi-project', stage:'Identified', owner:'Ahmed', action:'Register badges + print capability brochures + prepare tablet demo for meetings', date:'2026-11-02', notes:'🔴 26 DAYS AWAY. Abu Dhabi 2–5 Nov 2026. 239,000 attendees. Meet BGC, RGD, Umm Shaif EPC procurement in person.'},
+  {id:11, project:'ADNOC Umm Shaif Gas Cap — EPC Sub-Supply', client:'ADNOC Offshore', country:'UAE', value:'$6.2B', stage:'Identified', owner:'Sara', action:'Identify 3 EPC consortiums awarded $5.1B packages and register as sub-supplier', date:'2026-11-30', notes:'🆕 FID Jul 2026. 3 EPC packages open. TotalEnergies 20%, Eni 10%, CNPC 10% partners.'},
+  {id:3, project:'ADNOC Upper Zakum 1.5MMBD', client:'ADNOC Offshore', country:'UAE', value:'$17B', stage:'Identified', owner:'Sara', action:'Identify EPC sub-packages for marine equipment', date:'2026-10-05', notes:'Largest single ADNOC EPC. Multiple packages.'},
+  {id:4, project:'ADNOC SE Onshore P5 (Asab/Sahil/Shah)', client:'ADNOC Onshore', country:'UAE', value:'$397M', stage:'Quoting', owner:'Ahmed', action:'Submit technical offer for piping & E&I', date:'2026-09-25', notes:'RCG has existing supply history at these sites.'},
+  {id:5, project:'Hail & Ghasha + SARB Deep Gas', client:'ADNOC Ghasha', country:'UAE', value:'Multi-billion', stage:'Identified', owner:'Khalid', action:'Apply for vendor pre-qualification', date:'2026-10-15', notes:'New operating company — get on vendor list early.'},
+  {id:6, project:'Aramco Jafurah Phase 2', client:'Saudi Aramco', country:'KSA', value:'$12.4B', stage:'Identified', owner:'Ravi', action:'Register on Aramco Ariba portal', date:'2026-10-10', notes:'Need Saudi agent for IKTVA score.'},
+  {id:7, project:'QatarEnergy NFW + Bul Hanine', client:'QatarEnergy', country:'Qatar', value:'$4B+', stage:'Identified', owner:'Sara', action:'Contact COOEC & Technip Doha procurement', date:'2026-10-20', notes:'Bul Hanine construction started Sep 2026.'},
+  {id:8, project:'ADNOC Ruwais LNG — Package 4 Utilities', client:'ADNOC Gas', country:'UAE', value:'$280M', stage:'Won', owner:'Ahmed', action:'Coordinate delivery schedule', date:'2026-12-31', notes:'PO received. Delivery Q1 2027.'},
+  {id:9, project:'ADNOC Zirku Island MRO', client:'ADNOC Offshore', country:'UAE', value:'$45M', stage:'Won', owner:'Ravi', action:'Ongoing monthly delivery', date:'2026-12-31', notes:'Long-term MRO contract. Renewal due Dec 2026.'},
+  {id:10, project:'PDO Oman Marmul Polymer Project', client:'PDO Oman', country:'Oman', value:'$150M', stage:'Lost', owner:'Khalid', action:'Request debrief from PDO procurement', date:'2026-08-30', notes:'Lost on price. Competitor undercut by 8%.'}
+];
+var nextId = 11;
+
+function renderCRM() {
+  var fs = document.getElementById('f-stage').value;
+  var fc = document.getElementById('f-country').value;
+  var fo = document.getElementById('f-owner').value;
+  var filtered = tenders.filter(function(t){
+    return (!fs||t.stage===fs) && (!fc||t.country===fc) && (!fo||t.owner===fo);
+  });
+  ['Identified','Contacted','Quoting','Won','Lost'].forEach(function(s){
+    document.getElementById('col-'+s).innerHTML='';
+    document.getElementById('cnt-'+s).textContent='0';
+  });
+  var counts={};
+  filtered.forEach(function(t){
+    counts[t.stage]=(counts[t.stage]||0)+1;
+    var col=document.getElementById('col-'+t.stage);
+    if(!col)return;
+    var d=t.date?new Date(t.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short'}):'—';
+    var c=document.createElement('div');
+    c.className='kcard';
+    c.innerHTML='<div class="kc-proj">'+t.project+'</div><div class="kc-client">'+t.client+' · '+t.country+'</div><div class="kc-val">'+t.value+'</div><div class="kc-foot"><span class="kc-owner">'+t.owner+'</span><span class="kc-date">📅 '+d+'</span></div><div class="kc-btns"><button class="kbtn" onclick="moveTender('+t.id+')">Move ▶</button><button class="kbtn del" onclick="delTender('+t.id+')">✕</button></div>';
+    col.appendChild(c);
+  });
+  Object.keys(counts).forEach(function(s){
+    var el=document.getElementById('cnt-'+s);
+    if(el)el.textContent=counts[s];
+  });
+  var tbody=document.getElementById('crm-tbody');
+  tbody.innerHTML='';
+  filtered.forEach(function(t){
+    var d=t.date?new Date(t.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';
+    var over=t.date&&new Date(t.date)<new Date()&&t.stage!=='Won'&&t.stage!=='Lost';
+    var tr=document.createElement('tr');
+    tr.innerHTML='<td><strong style="color:#fff">'+(t.project.length>38?t.project.slice(0,38)+'…':t.project)+'</strong><br><span style="font-size:9px;color:#8FA3B8">'+t.notes+'</span></td><td>'+t.client+'</td><td>'+t.country+'</td><td style="color:#C9A84C;font-weight:600">'+t.value+'</td><td><span class="stage-badge s-'+t.stage+'">'+t.stage+'</span></td><td>'+t.owner+'</td><td style="font-size:10px">'+t.action+'</td><td style="'+(over?'color:#E74C3C;font-weight:600':'')+'">'+d+'</td><td><button class="tbtn" onclick="moveTender('+t.id+')">Move</button><button class="tbtn del" onclick="delTender('+t.id+')">✕</button></td>';
+    tbody.appendChild(tr);
+  });
+  var active=filtered.filter(function(t){return t.stage!=='Won'&&t.stage!=='Lost';}).length;
+  var won=filtered.filter(function(t){return t.stage==='Won';}).length;
+  var decided=filtered.filter(function(t){return t.stage==='Won'||t.stage==='Lost';}).length;
+  var now=new Date(),end=new Date(now.getFullYear(),now.getMonth()+1,0);
+  var closing=filtered.filter(function(t){var d=new Date(t.date);return d>=now&&d<=end;}).length;
+  document.getElementById('kpi-active').textContent=active;
+  document.getElementById('kpi-won').textContent=won;
+  document.getElementById('kpi-closing').textContent=closing;
+  document.getElementById('kpi-winrate').textContent=decided?Math.round(won/decided*100)+'%':'—';
+  document.getElementById('kpi-count').textContent=filtered.length;
+}
+
+var stages=['Identified','Contacted','Quoting','Won','Lost'];
+function moveTender(id){
+  var t=tenders.find(function(x){return x.id===id;});
+  if(!t)return;
+  var i=stages.indexOf(t.stage);
+  if(i<stages.length-1){t.stage=stages[i+1];renderCRM();}
+  else alert('Already at final stage.');
+}
+function delTender(id){
+  if(confirm('Remove this tender?')){tenders=tenders.filter(function(t){return t.id!==id;});renderCRM();}
+}
+function openModal(){
+  document.getElementById('modal').classList.add('open');
+  ['m-proj','m-client','m-action','m-notes','m-value'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('m-date').value='';
+  document.querySelectorAll('#m-prods input').forEach(function(c){c.checked=false;});
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');}
+function saveTender(){
+  var proj=document.getElementById('m-proj').value.trim();
+  var client=document.getElementById('m-client').value.trim();
+  if(!proj||!client){alert('Please fill Project Name and Client.');return;}
+  tenders.push({id:nextId++,project:proj,client:client,country:document.getElementById('m-country').value,value:document.getElementById('m-value').value||'TBD',stage:document.getElementById('m-stage').value,owner:document.getElementById('m-owner').value,action:document.getElementById('m-action').value,date:document.getElementById('m-date').value,notes:document.getElementById('m-notes').value});
+  closeModal();
+  renderCRM();
+}
+
+// ─── AI KNOWLEDGE BASE ────────────────
+
+var kb=[
+  {keys:['local','local+','make it','emirates','icv','manufacturer','approved list'],ans:`<strong>ADNOC Local+ Programme — RCG's Biggest Opportunity Today</strong><br><br>As of 08 October 2026, ADNOC has officially confirmed that its $55 billion project award pipeline for 2026–2028 prioritises UAE-based suppliers through the "Local+" programme as part of the "Make it in the Emirates" initiative.<br><br><strong>What Local+ means for RCG:</strong><br>• 70 UAE manufacturers already on the approved Local+ list<br>• "Made in the Emirates" products are mandated as FIRST CHOICE across all ADNOC projects<br>• EPC contractors must source from Local+ approved suppliers where available<br>• Being on the Local+ list means RCG gets considered BEFORE international suppliers<br><br><strong>How RCG qualifies:</strong><br>1. Submit application to ADNOC's Local+ programme through the ADNOC Procurement Portal<br>2. Demonstrate UAE manufacturing or value-add capability across product categories<br>3. Meet ADNOC's technical qualification standards for each product category<br>4. Maintain ICV certification (which RCG already has)<br><br><strong>Why this is urgent:</strong> ADNOC is actively awarding $55B in contracts right now. Suppliers on the Local+ list get preferential consideration. Every day without registration is a missed opportunity.<br><br><strong>Action today:</strong> Visit adnoc.ae/local-plus and begin the registration process. This single action could unlock access to all $55B in ADNOC project awards as a preferred supplier.`},
+  {keys:['priorit','first','best project','focus','recommend','start'],ans:`<strong>Top 4 Priorities for RCG — 08 October 2026</strong><br><br>🔴 <strong>#1: Apply for ADNOC Local+ Programme</strong><br>ADNOC's $55B pipeline officially prioritises UAE-based Local+ suppliers as first-choice. 70 manufacturers already approved. RCG must register NOW at adnoc.ae — unlocks preferred access to entire $55B pipeline.<br><br>🔴 <strong>#2: ADNOC BGC $8B+ — 40 days to deadline</strong><br>Technical bids due 16 November 2026. Contact all 7 EPC bidders: L&amp;T+Samsung, Saipem+NMDC, Technip+JGC, Tecnimont+CPECC, McDermott, Petrofac, Wison — this week.<br><br>🔴 <strong>#3: ADIPEC 2026 — 26 days away</strong><br>Abu Dhabi, 2–5 November at ADNEC. 180,000–205,000 attendees. Every ADNOC EPC contractor present. Register at adipec.com NOW.<br><br>🔴 <strong>#4: RGD $13.2B + Umm Shaif $6.2B</strong><br>Sub-supplier procurement open on both. Wison and Tecnimont mobilising at Habshan and Ruwais. RCG Habshan track record is the #1 differentiator.`},
+  {keys:['bab','bgc','bab gas cap','8 billion','gas cap'],ans:`<strong>ADNOC Bab Gas Cap (BGC) — Breaking 08 Oct 2026</strong><br><br><strong>What it is:</strong> A major new gas processing plant targeting 1.85 Bcfd of gas capacity. Part of ADNOC's wider BGC development which will unlock 3 undeveloped gas-cap reservoirs in the Bab area, ~170km from Abu Dhabi. Concession: ADNOC 60%, TotalEnergies 10%, BP 10%, CNPC 8%, JODCO 5%, ZhenHua Oil 4%, GS E&P 3%.<br><br><strong>EPC Package 1 value: $8B+</strong><br><br><strong>The 7 competing bidders:</strong><br>1. L&T Energy Hydrocarbon + Samsung E&A<br>2. Saipem + NMDC Energy (UAE-based — key RCG connection)<br>3. Technip Energies + JGC + Sinopec<br>4. Tecnimont + CPECC<br>+ McDermott, Petrofac, Wison invited<br><br><strong>Technical bids deadline: 16 November 2026</strong><br><br><strong>RCG action:</strong> Contact all 7 bidders' procurement teams NOW and register as approved sub-supplier for process equipment, rotating equipment, chillers, valves, instrumentation, and electrical.`},
+  {keys:['xrg','absheron','azerbaijan','caspian','international'],ans:`<strong>ADNOC XRG — Absheron Phase 2 FID (08 Oct 2026)</strong><br><br>ADNOC's international investment unit XRG (enterprise value $80B+) took FID on the Absheron offshore gas & condensate field in Azerbaijan's Caspian Sea on 26 September 2026.<br><br><strong>Target:</strong> 600 MMcfd gas + 47,000 bpd condensate · Production start 2029<br><strong>Partners:</strong> XRG 30% · SOCAR 35% · TotalEnergies 35%<br><br>XRG is ADNOC's global growth engine — already invested in US LNG (Rio Grande), Argentina LNG, Southern Gas Corridor, and now Azerbaijan. It plans to double its asset value over the next decade.<br><br><strong>RCG opportunity:</strong> As an ICV-certified ADNOC supplier, RCG can approach XRG's Abu Dhabi procurement team to be registered for international project supply. This is a 2027–2029 play but relationship building starts now.`},
+  {keys:['today','latest','new','update','this week','oct','october','what happened','recent','adipec','lng','thailand','local+','local plus','make it'],ans:`<strong>Breaking GCC Market Intelligence — 08 October 2026</strong><br><br>🔴 <strong>TODAY 08 Oct — ADNOC Local+ Programme:</strong> ADNOC's $55B project awards for 2026–2028 officially prioritise UAE-based suppliers via the "Local+" programme. 70 UAE manufacturers already qualified. "Make it in the Emirates" mandates Made-in-UAE products as first-choice across all ADNOC projects. <strong>RCG must apply for Local+ registration immediately</strong> — this directly unlocks preferred access to the full $55B pipeline.<br><br>🔴 <strong>08 Oct — Ghasha Sour Gas $2.7B:</strong> ADNOC awarded $2.7 billion in drilling and service contracts for Hail and Ghasha sour gas projects — $1.3B integrated drilling services, $711M island drilling units, $681M logistics & marine. Surface equipment procurement to follow — direct opportunity for RCG sour-service valves and instrumentation.<br><br>🟡 <strong>ADIPEC 2026 — 26 days away:</strong> Abu Dhabi, 2–5 November at ADNEC. 180,000–205,000 attendees. AI in energy, Oil & Gas 4.0, full ADNOC ecosystem present. RCG must register now at adipec.com.<br><br>🔴 <strong>BGC $8B+ COUNTDOWN:</strong> Technical bids due 16 Nov 2026 — 39 days left. 7 EPC bidders. Contact procurement teams this week.<br><br>🔵 <strong>06 Oct:</strong> ADNOC Ruwais LNG Thailand deal (2 MTPA) — procurement accelerating. 90%+ capacity committed.<br><br><strong>RCG top 3 actions this week:</strong><br>1. Apply for ADNOC Local+ registration — unlocks $55B pipeline<br>2. Register for ADIPEC 2026 (2–5 Nov) at adipec.com<br>3. Contact all 7 BGC EPC bidders before 16 November`},
+  {keys:['iktva','saudi','aramco','ksa','kingdom','jafurah','sabic'],ans:`<strong>Saudi Arabia Entry Strategy via IKTVA</strong><br><br>IKTVA (In-Kingdom Total Value Add) is Saudi Aramco's mandatory localisation programme. Here's how RCG enters:<br><br>1. <strong>Register on SAP Ariba</strong> — Aramco's supplier portal. Mandatory before any procurement contact. Takes 4–6 weeks.<br>2. <strong>Target Jafurah EPC sub-contractors</strong> — Samsung E&A, Tecnicas Reunidas, Petrofac have active scopes.<br>3. <strong>Leverage GCC proximity</strong> — IKTVA credits Abu Dhabi-based suppliers via GCC free trade agreements.<br>4. <strong>NMDC Energy angle (NEW)</strong> — NMDC won Saudi EPC Contractor of Year on 20 Sep 2026. They are UAE-based and active in Saudi. Approach NMDC as a channel into Saudi projects.<br>5. <strong>Lead with rotating equipment and chillers</strong> — highest demand at Jafurah gas compression facilities.<br><br><strong>Timeline:</strong> Register now for Q1 2027 procurement windows.`},
+  {keys:['email','draft','outreach','write','letter','contact','epc','introduce'],ans:`<strong>Draft Outreach Email — EPC Contractor</strong><br><br><em>Subject: RCG Vendor Registration | ADNOC BGC / RGD Projects — Industrial Equipment Supply</em><br><br>Dear [Procurement Manager],<br><br>I am writing on behalf of Right Choice Group (RCG), an Abu Dhabi-based industrial trading and services company with 17+ years of verified supply experience to ADNOC facilities including Habshan, Ruwais, Zirku Island, and Shah.<br><br>We understand your organisation is competing for EPC scopes under ADNOC's Bab Gas Cap (BGC) development and/or Rich Gas Development (RGD) project at Habshan. We would welcome the opportunity to be considered as a qualified sub-supplier for:<br><br>• Rotating Equipment (pumps, compressors, drivers — API 610/617/618)<br>• Industrial Chillers & HVAC Systems<br>• Process Equipment & Pressure Vessels<br>• Valves, Instrumentation & E&I Equipment<br>• Bulk Material Handling Systems<br><br>RCG holds current ADNOC ICV certification and is pre-qualified with ADNOC Gas, ADNOC Onshore, and ADNOC Offshore. We can provide full vendor documentation, datasheets and references within 48 hours.<br><br>I would welcome 20 minutes at your convenience. Company profile attached.<br><br>Best regards,<br>[Your Name] | Business Development<br>Right Choice Group | Abu Dhabi, UAE`},
+  {keys:['competitor','competition','rival','who else','vs'],ans:`<strong>RCG's Main Competitors — UAE Industrial Supply</strong><br><br><strong>Direct competitors:</strong><br>• Al Masaood — strong rotating equipment, long ADNOC history<br>• Galadari Trading — valves, instrumentation, E&I<br>• Petrogen — process equipment, Ruwais focus<br>• Interserve / Sapura — maintenance services overlap<br><br><strong>RCG's differentiators:</strong><br>1. Multi-product capability under one roof<br>2. Proven Habshan + Zirku Island + Shah field track record<br>3. Africa market coverage (competitors rarely have this)<br>4. ICV-registered UAE entity — ADNOC procurement scoring advantage<br>5. Agility — faster delivery than larger trading houses<br><br><strong>New competitive angle (Sep 2026):</strong> NMDC Energy's Saudi award elevates them as a major EPC player. Position RCG as NMDC's preferred equipment supplier for both their Saudi and UAE (BGC) projects.`},
+  {keys:['qatar','bul hanine','nfw','lng','ras laffan'],ans:`<strong>Qatar Strategy — Two Live Opportunities Sep 2026</strong><br><br><strong>1. Bul Hanine Offshore EPIC — $4B (COOEC)</strong><br>Construction started Sep 2026. COOEC (Chinese contractor) is the prime. Sub-supplier windows open now for offshore rotating equipment, instrumentation, and marine equipment.<br><br><strong>2. QatarEnergy NFW LNG — +16 MTPA</strong><br>Main JV (Technip/CCC/GAC) mobilising. Sub-contract registration ongoing for LNG train utilities — chillers, rotating equipment, instrumentation.<br><br><strong>Entry steps:</strong><br>1. Register on QatarEnergy's Ariba supplier portal<br>2. Contact COOEC's Doha procurement office for Bul Hanine<br>3. Contact Technip Energies Doha for NFW sub-supply<br>4. Appoint a Qatari local agent (mandatory for in-country presence)<br><br><strong>Logistics advantage:</strong> Abu Dhabi to Doha — 1-day shipping, no import duties within GCC.`},
+  {keys:['adipec','exhibition','conference','november','event','attend','networking'],ans:`<strong>ADIPEC 2026 — RCG Must Be There · 2–5 November Abu Dhabi</strong><br><br>ADIPEC 2026 is in <strong>25 days</strong> and it is the single most important event for RCG's business development this year.<br><br><strong>What is ADIPEC:</strong> The Abu Dhabi International Petroleum Exhibition and Conference — the world's largest energy industry event. Held every year in Abu Dhabi at ADNEC.<br><br><strong>2026 edition facts:</strong><br>• Dates: 2–5 November 2026<br>• Expected attendees: 239,000+ from 160+ countries<br>• Record Asian participation — 353 companies, 6 national pavilions<br>• 1,800+ speakers across 13 conference programmes<br>• All ADNOC divisions, EPC contractors, equipment suppliers in one place<br>• ADNOC signs major deals at ADIPEC every year<br><br><strong>Why RCG must attend:</strong><br>Every EPC contractor bidding for BGC, RGD, Umm Shaif, Upper Zakum will be on the exhibition floor. RCG can meet Wison, Tecnimont, L&T+Samsung, Saipem+NMDC, Technip, McDermott, Petrofac procurement managers in person — in 3 days what would take 6 months of cold calls.<br><br><strong>RCG action:</strong> Register for ADIPEC visitor badges immediately at adipec.com. Prepare a printed capability brochure and a tablet showing this dashboard for meetings.`},
+  {keys:['ruwais lng','ruwais','lng deal','thailand','9.6','liquefied'],ans:`<strong>ADNOC Ruwais LNG — Procurement Accelerating (08 Oct 2026)</strong><br><br>TODAY: ADNOC signed a 2 million tonne LNG supply deal with Thailand's Gulf Development — deliveries starting 2027. This is the latest in a series of long-term LNG sales that prove Ruwais LNG is a fully committed project.<br><br><strong>Project facts:</strong><br>• Capacity: 9.6 MTPA from two liquefaction trains<br>• Location: Ruwais Industrial City, Abu Dhabi<br>• Commercial operations: 2028<br>• Status: 90%+ of capacity already committed to long-term buyers<br>• Recent deals: Japan INPEX (1 MTPA, 15-year), Thailand Gulf Group (2 MTPA), others<br>• ADNOC targeting 47 MTPA marketable LNG beyond 2030<br><br><strong>What this means for RCG:</strong> Ruwais LNG construction procurement is in full swing. Industrial chillers, refrigeration systems for LNG trains, process equipment, valves, instrumentation, and electrical systems are all in active demand at Ruwais right now.<br><br><strong>RCG action:</strong> Leverage existing Ruwais supply history to approach LNG train EPC contractor procurement teams. Meet them at ADIPEC (2–5 Nov) for face-to-face conversations.`},
+  {keys:['umm shaif','umm shaif gas cap','6.2','offshore gas','offshore abu dhabi'],ans:`<strong>ADNOC Umm Shaif Gas Cap — $6.2B FID (Jul 2026)</strong><br><br>ADNOC confirmed a $6.2 billion FID for the Umm Shaif Gas Cap development on 21 July 2026. This is now one of the most active sub-supply opportunities in the ADNOC portfolio.<br><br><strong>Project facts:</strong><br>• Location: Offshore Abu Dhabi (Abu Dhabi's longest-operating offshore field since 1962)<br>• Target: 600+ MMscfd gas + associated condensates<br>• Production start: 2030<br>• Partners: ADNOC Offshore 60%, TotalEnergies 20%, Eni 10%, CNPC 10%<br><br><strong>EPC status:</strong> Three packages totalling $5.1B already awarded to UAE & international contractor consortiums. Sub-supplier procurement windows OPEN NOW.<br>Plus: $365M 14-well drilling programme by ADNOC Drilling (18 months, 3 rigs).<br><br><strong>RCG fit:</strong> Rotating equipment for offshore platforms, HVAC/chillers for wellhead towers, valves & instrumentation for gas cap wellheads, marine equipment, offshore structural access.<br><br><strong>Action:</strong> Identify the three EPC contractor consortiums and register RCG as sub-supplier immediately.`},
+  {keys:['kuwait','jazza','koc','offshore gas','kuwait gas','jazza field'],ans:`<strong>Kuwait — Jazza Field Discovery & KOC Offshore Expansion</strong><br><br>Major update as of October 2026: Kuwait Oil Company (KOC) has confirmed the discovery of <strong>Jazza Field — Kuwait's first-ever offshore gas field</strong>. This is a landmark development that significantly upgrades Kuwait from a "monitor" market to an emerging opportunity.<br><br><strong>KOC offshore activity (confirmed):</strong><br>• Jazza Field discovered — first Kuwait offshore gas field<br>• 6 exploratory wells drilled to establish offshore hydrocarbon potential<br>• First two wells drilled at Julaia and Ruqwa offshore locations<br>• First well at Ras Ashairij commenced drilling<br>• New gas sweetening facility at GBS-171 (West Kuwait) — 30% complete<br>• KOC hit 2.72 MMBPD crude target for second consecutive year<br><br><strong>Why this matters for RCG:</strong> Gas field development requires gas processing equipment, compression, instrumentation and offshore platform utilities — exactly RCG's portfolio. Kuwait gas sector is entering an active development phase for the first time.<br><br><strong>Entry strategy:</strong> Register with KOC's vendor portal now. Identify which international contractors win the Jazza Field development EPC packages (expected 2027). Abu Dhabi to Kuwait City — 1 hour flight, same GCC customs zone.`},
+  {keys:['hello','hi','help','what can','start','good morning','good afternoon'],ans:`<strong>Welcome — RCG Market Intelligence Assistant</strong><br><br>I'm updated as of <strong>08 October 2026</strong> with the latest GCC project intelligence. Here's what I can help with:<br><br>📋 <strong>Projects</strong> — "Tell me about the Bab Gas Cap project" or "What is the RGD?"<br>🎯 <strong>Strategy</strong> — "Which project should RCG prioritise?" or "How do we enter Saudi Arabia?"<br>📧 <strong>Email drafting</strong> — "Draft an outreach email to an EPC contractor"<br>🏭 <strong>Technical</strong> — "What equipment is needed for a gas processing train?"<br>🤝 <strong>Competition</strong> — "Who are RCG's main competitors?"<br>📰 <strong>Latest news</strong> — "What happened in the GCC market this week?"<br><br>Or click any quick question chip above to start instantly.`}
+];
+
+function getAnswer(text){
+  var lower=text.toLowerCase();
+  for(var i=0;i<kb.length;i++){
+    if(kb[i].keys.some(function(k){return lower.indexOf(k)!==-1;})){return kb[i].ans;}
+  }
+  return `<strong>Good question about: "${text}"</strong><br><br>Based on the latest GCC market intelligence (08 Oct 2026), RCG's best opportunities right now are:<br><br>🔴 <strong>ADNOC BGC $8B+</strong> — contact EPC bidders before 16 Nov 2026<br>🔴 <strong>ADNOC RGD $13.2B</strong> — sub-supplier windows open with Wison & Tecnimont<br>🔴 <strong>ADNOC Upper Zakum ~$17B</strong> — multiple EPC packages active<br><br>For specific intelligence on your question, try asking: "What happened this week?" or "Tell me about the BGC project" or "Draft an email to an EPC contractor".`;
+}
+
+function sendMsg(){
+  var input=document.getElementById('ai-input');
+  var chat=document.getElementById('chat-area');
+  var btn=document.getElementById('send-btn');
+  var text=input.value.trim();
+  if(!text)return;
+  chat.innerHTML+='<div class="msg"><div class="msg-label user">You</div><div class="bubble user-bubble">'+text+'</div></div>';
+  input.value='';
+  btn.disabled=true;
+  var lid='l'+Date.now();
+  chat.innerHTML+='<div class="msg" id="'+lid+'"><div class="msg-label">RCG Intelligence Assistant</div><div class="bubble">Analysing<span class="loading-dots"></span></div></div>';
+  chat.scrollTop=chat.scrollHeight;
+  setTimeout(function(){
+    var el=document.getElementById(lid);
+    if(el)el.querySelector('.bubble').innerHTML=getAnswer(text);
+    btn.disabled=false;
+    chat.scrollTop=chat.scrollHeight;
+  },800);
+}
+
+function askQuick(el){
+  var q = el.textContent.trim().replace(/^🆕\s*/,'');
+  document.getElementById('ai-input').value=q;
+  switchTab('ai', document.querySelector('.tab-bar .tab:nth-child(4)'));
+  sendMsg();
+}
+
+// Init CRM on load
+window.addEventListener('load', function(){ renderCRM(); });
+</script>
+</body>
+</html>
